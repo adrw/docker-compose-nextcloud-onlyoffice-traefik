@@ -7,6 +7,12 @@ services:
     stdin_open: true
     tty: true
     restart: always
+    environment:
+      - MYSQL_HOST=mariadb
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
+      - MYSQL_USER=${MYSQL_USER:-nextcloud}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-nextcloud}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
     expose:
       - "80"
       - "9000"
