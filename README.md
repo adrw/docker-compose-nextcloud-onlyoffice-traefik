@@ -5,6 +5,5 @@ Docker Compose configuration for a Nextcloud, OnlyOffice, Traefik2, MariaDB serv
 # Getting Started
 
 ```
-VOLUME_PATH=${ds volume path = /volume1/}
-VOLUME_PATH=${ds volume path = /volume1/} docker-compose up -d
+VOLUME_PATH=${ds volume path = /volume1/} COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
 ```
