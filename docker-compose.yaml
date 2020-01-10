@@ -52,8 +52,8 @@ services:
     tty: true
     restart: always
     ports:
-      - 8080:80
-      - 443:443
+      - 40480:80
+      - 40443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ${VOLUME_PATH}app_data:/var/www/html
