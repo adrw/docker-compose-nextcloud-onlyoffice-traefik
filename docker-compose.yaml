@@ -26,7 +26,7 @@ services:
     container_name: nextcloud_redis
     image: redis
     volumes:
-      - ${INSTANCE_PATH}nextcloud_data:/var/www/html/data
+      - ${INSTANCE_PATH}nextcloud_data/redis:/var/www/html/data
     networks:
       - internal
   onlyoffice:
