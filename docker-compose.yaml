@@ -20,11 +20,15 @@ services:
       - app_data:/var/www/html
       - ${VOLUME_PATH}:/var/external/books
       - ${VOLUME_PATH}:/var/external/homes
+    networks:
+      - internal
   redis:
     image: redis
     container_name: redis
     volumes:
       - app_data/redis:/var/www/html/data
+    networks:
+      - internal
   onlyoffice-document-server:
     container_name: onlyoffice-document-server
     image: onlyoffice/documentserver:latest
@@ -37,6 +41,8 @@ services:
     volumes:
       - document_data:/var/www/onlyoffice/Data
       - document_log:/var/log/onlyoffice
+    networks:
+      - internal
   mariadb:
     image: mariadb:10.3.12
     container_name: mariadb
@@ -47,6 +53,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - internal
   nginx:
     container_name: nginx-server
     image: nginx
@@ -59,8 +67,17 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - app_data:/var/www/html
+    networks:
+      - internal
+      - external
 volumes:
   document_data:
   document_log:
   app_data:
   mysql_data:
+
+networks:
+  internal:
+  external:
+    external: true
+    name: nextcloud-net
