@@ -18,15 +18,15 @@ services:
       - "9000"
     volumes:
       - app_data:/var/www/html
-      - ${VOLUME_PATH}:/var/external/books
-      - ${VOLUME_PATH}:/var/external/homes
+      - ${VOLUME_PATH}/books:/var/external/books
+      - ${VOLUME_PATH}/homes:/var/external/homes
     networks:
       - internal
   redis:
     image: redis
     container_name: redis
     volumes:
-      - app_data/redis:/var/www/html/data
+      - redis_data:/var/www/html/data
     networks:
       - internal
   onlyoffice-document-server:
@@ -75,6 +75,7 @@ volumes:
   document_log:
   app_data:
   mysql_data:
+  redis_data:
 
 networks:
   internal:
