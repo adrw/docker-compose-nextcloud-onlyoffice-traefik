@@ -52,7 +52,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-nextcloud}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ${INSTANCE_PATH}mysql_data:/var/lib/mysql
     networks:
       - internal
   nginx:
@@ -73,7 +73,6 @@ services:
 volumes:
   document_data:
   document_log:
-  mysql_data:
 
 networks:
   internal:
