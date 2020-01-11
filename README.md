@@ -14,3 +14,6 @@ INSTANCE_PATH=${path where nextcloud instance is = /volume1/docker/nextcloud/ins
 ```
 sudo INSTANCE_PATH=/volume1/docker/nextcloud/instance/ EXTERNAL_PATH=/volume1/ COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
 ```
+
+Todos
+Probably easier to just connect to server over some web protocol vs local + unix permissions?

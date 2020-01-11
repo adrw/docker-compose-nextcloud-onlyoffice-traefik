@@ -17,16 +17,14 @@ services:
       - "80"
       - "9000"
     volumes:
-      - ${INSTANCE_PATH}nextcloud_data:/var/www/html
-      - ${EXTERNAL_PATH}books:/var/external/books
-      - ${EXTERNAL_PATH}homes:/var/external/homes
+      - nextcloud_data:/var/www/html
     networks:
       - internal
   redis:
     container_name: nextcloud_redis
     image: redis
     volumes:
-      - ${INSTANCE_PATH}nextcloud_data/redis:/var/www/html/data
+      - nextcloud_data:/var/www/html/data
     networks:
       - internal
   onlyoffice:
@@ -52,7 +50,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE:-nextcloud}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
     volumes:
-      - ${INSTANCE_PATH}mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     networks:
       - internal
   nginx:
@@ -66,13 +64,15 @@ services:
       - 40443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ${INSTANCE_PATH}nextcloud_data:/var/www/html
+      - nextcloud_data:/var/www/html
     networks:
       - internal
       - external
 volumes:
   document_data:
   document_log:
+  mysql_data:
+  nextcloud_data:
 
 networks:
   internal:
