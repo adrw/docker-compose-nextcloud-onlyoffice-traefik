@@ -76,6 +76,8 @@ volumes:
 
 networks:
   internal:
+    external: false
+    name: nextcloud_internal
   external:
     external: true
-    name: nextcloud-net
+    name: nextcloud_external
