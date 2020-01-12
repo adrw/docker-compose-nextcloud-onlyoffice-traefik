@@ -3,14 +3,9 @@
 set -x
 
 # Configure Nextcloud
-docker exec -u www-data nextcloud_app php occ --no-warnings config:system:get trusted_domains >> trusted_domain.tmp
-
-if ! grep -q "nextcloud_nginx" trusted_domain.tmp; then
-    TRUSTED_INDEX=$(cat trusted_domain.tmp | wc -l);
-    docker exec -u www-data nextcloud_app php occ --no-warnings config:system:set trusted_domains $TRUSTED_INDEX --value="nextcloud_nginx"
-fi
-
-rm trusted_domain.tmp
+docker exec -u www-data nextcloud_app php occ --no-warnings config:system:set trusted_domains 0 --value="nextcloud_nginx"
+docker exec -u www-data nextcloud_app php occ --no-warnings config:system:set trusted_domains 1 --value="192.168.0.116:40480" # local address
+docker exec -u www-data nextcloud_app php occ --no-warnings config:system:set trusted_domains 2 --value="cloud.adrw.xyz" # remote address
 
 docker exec -u www-data nextcloud_app php occ --no-warnings app:install onlyoffice
 
