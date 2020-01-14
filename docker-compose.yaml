@@ -3,7 +3,7 @@ version: "3.7"
 services:
   nextcloud:
     container_name: nextcloud_app
-    image: nextcloud:fpm
+    image: linuxserver/nextcloud
     stdin_open: true
     tty: true
     restart: always
