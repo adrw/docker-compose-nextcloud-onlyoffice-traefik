@@ -6,6 +6,7 @@ set -x
 OLDUID=$(docker exec nextcloud_app id -u www-data)
 OLDGID=$(docker exec nextcloud_app id -g www-data)
 echo Updating www-data uid=$NEWUID gid=$NEWGID
+
 docker exec nextcloud_app usermod -u $NEWUID www-data
 docker exec nextcloud_app groupmod -g $NEWGID www-data
 docker exec nextcloud_app find / -user $OLDUID -exec chown -h $NEWUID {} \;
