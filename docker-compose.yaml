@@ -13,6 +13,8 @@ services:
       - MYSQL_USER=${MYSQL_USER:-nextcloud}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-nextcloud}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
+      - NEXTCLOUD_UPDATE=1
+      - REDIS_HOST=redis
     expose:
       - "80"
       - "9000"
