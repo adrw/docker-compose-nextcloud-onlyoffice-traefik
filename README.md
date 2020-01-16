@@ -5,13 +5,15 @@ Docker Compose configuration for a Nextcloud, OnlyOffice, Traefik2, MariaDB serv
 # Getting Started
 
 ```
-NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
+$ COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
+$ NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) ./set_configuration.sh
 ```
 
 # DS
 
 ```
-sudo NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
+$ COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
+$ sudo NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) ./set_configuration.sh
 ```
 
 Todos
