@@ -11,6 +11,9 @@ docker exec nextcloud_app chmod -R 0750 /var/www/html
 docker exec nextcloud_app chown -R www-data:www-data /data
 docker exec nextcloud_app chmod -R 0750 /data
 
+chmod -R u+rx /volume1/docker/nextcloud/instance/app
+chmod -R u+rx /volume1/docker/nextcloud/instance/data
+
 # # Configure Nextcloud Permissions
 # OLDUID=$(docker exec nextcloud_app id -u www-data)
 # OLDGID=$(docker exec nextcloud_app id -g www-data)
