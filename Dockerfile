@@ -9,4 +9,9 @@ RUN USER=www-data && \
     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
 USER www-data:www-data
-ENTRYPOINT ["fixuid && php-fpm"]
+
+RUN mkdir -p /var/www/html/config
+
+# ENTRYPOINT ["fixuid && /entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
