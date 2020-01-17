@@ -24,6 +24,7 @@ services:
       - 40443:443
     networks:
       - internal
+      - external
     restart: unless-stopped
 
     #     image: nextcloud:fpm
