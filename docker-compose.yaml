@@ -20,7 +20,7 @@ services:
       - "80"
       - "9000"
     volumes:
-      - app:/var/www/html
+      - ${APP_PATH}app:/var/www/html
       - ${APP_PATH}data:/data
       - ${EXTERNAL_PATH}medical:/var/external/medical
     networks:
@@ -69,13 +69,13 @@ services:
       - 40443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - app:/var/www/html
+      - ${APP_PATH}app:/var/www/html
     networks:
       - internal
       - external
 volumes:
-  app:
-    name: nextcloud_app
+  # app:
+  #   name: nextcloud_app
   # app_data:
   #   name: nextcloud_app_data
   document_data:
