@@ -3,10 +3,11 @@ version: "3.7"
 services:
   nextcloud:
     container_name: nextcloud_app
-    image: nextcloud:fpm
+    image: nextcloud:fpm-alpine
     stdin_open: true
     tty: true
     restart: always
+	user: 1037:100
     environment:
       - MYSQL_HOST=nextcloud_mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
