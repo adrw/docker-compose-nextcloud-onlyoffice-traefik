@@ -41,7 +41,7 @@ services:
         chown root:root /usr/local/bin/fixuid && \
         chmod 4755 /usr/local/bin/fixuid && \
         mkdir -p /etc/fixuid && \
-        printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+        printf "user: www-data\ngroup: root\n" > /etc/fixuid/config.yml
         fixuid
         php-fpm
   redis:
