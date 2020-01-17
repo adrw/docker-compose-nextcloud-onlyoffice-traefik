@@ -3,11 +3,11 @@ version: "3.7"
 services:
   nextcloud:
     container_name: nextcloud_app
-    # image: nextcloud:fpm
-    build:
-      context: .
-      cache_from:
-        - nextcloud:fpm
+    image: nextcloud:fpm
+    # build:
+    #   context: .
+    #   cache_from:
+    #     - nextcloud:fpm
     user: ${FIXUID:-1037}:${FIXGID:-100}
     stdin_open: true
     tty: true
@@ -30,6 +30,20 @@ services:
       - ${EXTERNAL_PATH}medical:/var/external/medical
     networks:
       - internal
+    command:
+      - - /bin/sh
+      - -c
+      - |
+        sleep 10
+        USER=www-data && \
+        GROUP=www-data && \
+        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.4/fixuid-0.4-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+        chown root:root /usr/local/bin/fixuid && \
+        chmod 4755 /usr/local/bin/fixuid && \
+        mkdir -p /etc/fixuid && \
+        printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+        fixuid
+        php-fpm
   redis:
     container_name: nextcloud_redis
     image: redis
