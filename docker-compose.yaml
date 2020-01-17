@@ -9,7 +9,7 @@ services:
       cache_from:
         - nextcloud:fpm
     user: ${FIXUID:-1037}:${FIXGID:-100}
-	  stdin_open: true
+    stdin_open: true
     tty: true
     restart: always
     environment:
