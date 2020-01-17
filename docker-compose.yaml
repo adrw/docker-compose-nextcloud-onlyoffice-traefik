@@ -6,7 +6,7 @@ services:
     image: linuxserver/nextcloud
     environment:
       - PUID=${PUID:-1037}
-      - PGID=${PGID:-100}
+      - PGID=${PGID:-0}
       - TZ=${TZ-America/Toronto}
       - MYSQL_HOST=nextcloud_mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
