@@ -7,7 +7,7 @@ services:
     stdin_open: true
     tty: true
     restart: always
-	user: 1037:100
+    user: 1037:100
     environment:
       - MYSQL_HOST=nextcloud_mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}

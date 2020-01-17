@@ -12,8 +12,8 @@ $ NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) ./set_configuration.sh
 # DS
 
 ```
-$ COMPOSE_HTTP_TIMEOUT=3600 docker-compose up -d
-$ sudo NEWUID=$(id -u $(whoami)) NEWGID=$(id -g $(whoami)) ./set_configuration.sh
+$ sudo COMPOSE_HTTP_TIMEOUT=3600  APP_PATH=/volume1/docker/nextcloud/instance/ EXTERNAL_PATH=/volume1/ docker-compose down -d
+$ sudo NEWUID=$(id -u nextcloud-admin) NEWGID=$(id -g nextcloud-admin) ./set_configuration.sh
 ```
 
 Todos
