@@ -21,7 +21,7 @@ services:
       - ${APP_PATH}data:/data
       - ${EXTERNAL_PATH}medical:/var/external/medical
     ports:
-      - 40480:443
+      - 40443:443
     networks:
       - internal
     restart: unless-stopped
