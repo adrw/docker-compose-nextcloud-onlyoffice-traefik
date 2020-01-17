@@ -7,7 +7,6 @@ services:
     stdin_open: true
     tty: true
     restart: always
-    user: 1037:100
     environment:
       - MYSQL_HOST=nextcloud_mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
@@ -26,19 +25,6 @@ services:
       - ${EXTERNAL_PATH}medical:/var/external/medical
     networks:
       - internal
-    command:
-      - /bin/sh
-      - -c
-      - |
-        sleep 10
-        echo "Update permissions"
-        usermod -u 1037 www-data
-        groupmod -u 100 www-data
-        usermod -g 100 www-data
-        id -u www-data
-        id -g www-data
-        echo "Done"
-        php-fpm
   redis:
     container_name: nextcloud_redis
     image: redis
