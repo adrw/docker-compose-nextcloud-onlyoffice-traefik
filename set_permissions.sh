@@ -5,8 +5,8 @@ set -x
 docker exec nextcloud_app apk add --no-cache sudo shadow
 
 # Basic Overwrite (https://github.com/nextcloud/docker/issues/236)
-docker exec nextcloud_app chown -R www-data:www-data /var/html
-docker exec nextcloud_app chmod -R 0750 /var/html
+docker exec nextcloud_app chown -R www-data:www-data /var/www/html
+docker exec nextcloud_app chmod -R 0750 /var/www/html
 
 docker exec nextcloud_app chown -R www-data:www-data /data
 docker exec nextcloud_app chmod -R 0750 /data
