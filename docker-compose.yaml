@@ -26,6 +26,15 @@ services:
       - ${EXTERNAL_PATH}medical:/var/external/medical
     networks:
       - internal
+    command:
+      - /bin/sh
+      - -c
+      - |
+        sleep 10
+        usermod -u 1037 www-data
+        groupmod -u 100 www-data
+        usermod -g 100 www-data
+        php-fpm
   redis:
     container_name: nextcloud_redis
     image: redis
