@@ -8,5 +8,5 @@ RUN USER=www-data && \
     mkdir -p /etc/fixuid && \
     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
-USER docker:docker
+USER www-data:www-data
 ENTRYPOINT ["fixuid"]
