@@ -1,4 +1,4 @@
-FROM nextcloud:fpm-alpine
+FROM nextcloud:fpm
 
 RUN USER=www-data && \
     GROUP=www-data && \
@@ -9,4 +9,4 @@ RUN USER=www-data && \
     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
 USER www-data:www-data
-ENTRYPOINT ["fixuid"]
+ENTRYPOINT ["fixuid && php-fpm"]
