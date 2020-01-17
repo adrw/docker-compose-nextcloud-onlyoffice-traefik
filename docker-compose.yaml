@@ -31,9 +31,13 @@ services:
       - -c
       - |
         sleep 10
+        echo "Update permissions"
         usermod -u 1037 www-data
         groupmod -u 100 www-data
         usermod -g 100 www-data
+        id -u www-data
+        id -g www-data
+        echo "Done"
         php-fpm
   redis:
     container_name: nextcloud_redis
