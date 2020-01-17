@@ -3,16 +3,11 @@ version: "3.7"
 services:
   nextcloud:
     container_name: nextcloud_app
-    image: nextcloud:fpm
-    # build:
-    #   context: .
-    #   cache_from:
-    #     - nextcloud:fpm
-    user: ${FIXUID:-1037}:${FIXGID:-100}
-    stdin_open: true
-    tty: true
-    restart: always
+    image: linuxserver/nextcloud
     environment:
+      - PUID=${PUID:-1037}
+      - PGID=${PGID:-100}
+      - TZ=${TZ-America/Toronto}
       - MYSQL_HOST=nextcloud_mysql
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
       - MYSQL_USER=${MYSQL_USER:-nextcloud}
@@ -21,29 +16,56 @@ services:
       - NEXTCLOUD_UPDATE=1
       - NEXTCLOUD_DATA_DIR=/data
       - REDIS_HOST=redis
-    expose:
-      - "80"
-      - "9000"
     volumes:
-      - ${APP_PATH}app:/var/www/html
+      - ${APP_PATH}config:/config
       - ${APP_PATH}data:/data
-      - ${EXTERNAL_PATH}medical:/var/external/medical
+    ports:
+      - 9000:443
     networks:
       - internal
-    command:
-      - /bin/sh
-      - -c
-      - |
-        sleep 10
-        USER=www-data && \
-        GROUP=www-data && \
-        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.4/fixuid-0.4-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
-        chown root:root /usr/local/bin/fixuid && \
-        chmod 4755 /usr/local/bin/fixuid && \
-        mkdir -p /etc/fixuid && \
-        printf "user: www-data\ngroup: root\n" > /etc/fixuid/config.yml
-        fixuid
-        php-fpm
+    restart: unless-stopped
+
+    #     image: nextcloud:fpm
+    #     # build:
+    #     #   context: .
+    #     #   cache_from:
+    #     #     - nextcloud:fpm
+    #     user: ${FIXUID:-1037}:${FIXGID:-100}
+    #     stdin_open: true
+    #     tty: true
+    #     restart: always
+    #     environment:
+    #       - MYSQL_HOST=nextcloud_mysql
+    #       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-myp@ssw0rd}
+    #       - MYSQL_USER=${MYSQL_USER:-nextcloud}
+    #       - MYSQL_DATABASE=${MYSQL_DATABASE:-nextcloud}
+    #       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
+    #       - NEXTCLOUD_UPDATE=1
+    #       - NEXTCLOUD_DATA_DIR=/data
+    #       - REDIS_HOST=redis
+    #     expose:
+    #       - "80"
+    #       - "9000"
+    #     volumes:
+    #       - ${APP_PATH}app:/var/www/html
+    #       - ${APP_PATH}data:/data
+    #       - ${EXTERNAL_PATH}medical:/var/external/medical
+    #     networks:
+    #       - internal
+    #     command:
+    #       - /bin/sh
+    #       - -c
+    #       - |
+    #         sleep 10
+    #         USER=www-data && \
+    #         GROUP=www-data && \
+    #         curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.4/fixuid-0.4-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    #         chown root:root /usr/local/bin/fixuid && \
+    #         chmod 4755 /usr/local/bin/fixuid && \
+    #         mkdir -p /etc/fixuid && \
+    #         printf "user: www-data\ngroup: root\n" > /etc/fixuid/config.yml
+    #         fixuid
+    #         php-fpm
   redis:
     container_name: nextcloud_redis
     image: redis
@@ -51,20 +73,20 @@ services:
       - ${APP_PATH}data:/data
     networks:
       - internal
-  onlyoffice:
-    container_name: nextcloud_onlyoffice
-    image: onlyoffice/documentserver:latest
-    stdin_open: true
-    tty: true
-    restart: always
-    expose:
-      - "80"
-      - "443"
-    volumes:
-      - document_data:/var/www/onlyoffice/Data
-      - document_log:/var/log/onlyoffice
-    networks:
-      - internal
+  # onlyoffice:
+  #   container_name: nextcloud_onlyoffice
+  #   image: onlyoffice/documentserver:latest
+  #   stdin_open: true
+  #   tty: true
+  #   restart: always
+  #   expose:
+  #     - "80"
+  #     - "443"
+  #   volumes:
+  #     - document_data:/var/www/onlyoffice/Data
+  #     - document_log:/var/log/onlyoffice
+  #   networks:
+  #     - internal
   mariadb:
     container_name: nextcloud_mysql
     image: mariadb:10.3.12
@@ -77,21 +99,21 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - internal
-  nginx:
-    container_name: nextcloud_nginx
-    image: nginx
-    stdin_open: true
-    tty: true
-    restart: always
-    ports:
-      - 40480:80
-      - 40443:443
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ${APP_PATH}app:/var/www/html
-    networks:
-      - internal
-      - external
+  # nginx:
+  #   container_name: nextcloud_nginx
+  #   image: nginx
+  #   stdin_open: true
+  #   tty: true
+  #   restart: always
+  #   ports:
+  #     - 40480:80
+  #     - 40443:443
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #     - ${APP_PATH}app:/var/www/html
+  #   networks:
+  #     - internal
+  #     - external
 volumes:
   # app:
   #   name: nextcloud_app
