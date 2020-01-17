@@ -3,7 +3,10 @@ version: "3.7"
 services:
   nextcloud:
     container_name: nextcloud_app
-    image: nextcloud:fpm-alpine
+    # image: nextcloud:fpm
+    build:
+      context: .
+      cache_from: nextcloud:fpm
     stdin_open: true
     tty: true
     restart: always
