@@ -19,8 +19,9 @@ services:
     volumes:
       - ${APP_PATH}config:/config
       - ${APP_PATH}data:/data
+      - ${EXTERNAL_PATH}medical:/var/external/medical
     ports:
-      - 9000:443
+      - 40480:443
     networks:
       - internal
     restart: unless-stopped
